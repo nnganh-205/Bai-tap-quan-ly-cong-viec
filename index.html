@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý công việc</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .task { display: flex; justify-content: space-between; margin: 5px 0; padding: 5px; border: 1px solid #ddd; }
+        button { margin-left: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Quản lý Công Việc</h2>
+    <input type="text" id="taskInput" placeholder="Nhập công việc...">
+    <button onclick="addTask()">Thêm</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        let tasks = [];
+        function addTask() {
+            const input = document.getElementById("taskInput");
+            if (input.value.trim()) {
+                tasks.push(input.value.trim());
+                input.value = "";
+                renderTasks();
+            }
+        }
+        function removeTask(index) {
+            tasks.splice(index, 1);
+            renderTasks();
+        }
+        function displayTasks() {
+            console.log("Danh sách công việc:");
+            tasks.forEach((task, index) => {
+                console.log(`${index + 1}. ${task}`);
+            });
+        }
+        function renderTasks() {
+            const list = document.getElementById("taskList");
+            list.innerHTML = "";
+            tasks.forEach((task, index) => {
+                list.innerHTML += `
+                    <li class="task">
+                        <span>${task}</span>
+                        <div>
+                            <button onclick="removeTask(${index})">Xóa</button>
+                        </div>
+                    </li>`;
+            });
+        }
+
+        addTask("Học JavaScript");
+        addTask("Làm bài tập");
+        addTask("Đọc sách");
+        displayTasks();
+        removeTask(1);
+        console.log("Sau khi xóa một công việc:");
+        displayTasks();
+    </script>
+</body>
+</html>
